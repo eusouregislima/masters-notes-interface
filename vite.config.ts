@@ -1,12 +1,23 @@
-import path from "node:path";
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import path from 'node:path';
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import biomePlugin from 'vite-plugin-biome';
 
 export default defineConfig({
-	plugins: [react()],
-	resolve: {
-		alias: {
-			"@": path.resolve(__dirname, "./src"),
-		},
-	},
+  plugins: [
+    react(),
+    biomePlugin({
+      mode: 'check',
+      files: '.',
+      applyFixes: true,
+      failOnError: true,
+    }),
+    TanStackRouterVite(),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 });
